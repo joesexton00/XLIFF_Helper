@@ -12,6 +12,9 @@
 		BE6533E01C9E385300C4522D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6533DF1C9E385300C4522D /* ViewController.m */; };
 		BE6533E21C9E385300C4522D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE6533E11C9E385300C4522D /* Assets.xcassets */; };
 		BE6533E51C9E385300C4522D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE6533E31C9E385300C4522D /* Main.storyboard */; };
+		BE6533F21C9E392E00C4522D /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6533ED1C9E392E00C4522D /* Document.m */; };
+		BE6533F31C9E392E00C4522D /* DocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6533EF1C9E392E00C4522D /* DocumentController.m */; };
+		BE6533F41C9E392E00C4522D /* TranslationUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6533F11C9E392E00C4522D /* TranslationUnit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,12 @@
 		BE6533E11C9E385300C4522D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE6533E41C9E385300C4522D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE6533E61C9E385300C4522D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE6533EC1C9E392E00C4522D /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		BE6533ED1C9E392E00C4522D /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		BE6533EE1C9E392E00C4522D /* DocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentController.h; sourceTree = "<group>"; };
+		BE6533EF1C9E392E00C4522D /* DocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentController.m; sourceTree = "<group>"; };
+		BE6533F01C9E392E00C4522D /* TranslationUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslationUnit.h; sourceTree = "<group>"; };
+		BE6533F11C9E392E00C4522D /* TranslationUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslationUnit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +65,12 @@
 		BE6533D71C9E385300C4522D /* XLIFF Helper */ = {
 			isa = PBXGroup;
 			children = (
+				BE6533EC1C9E392E00C4522D /* Document.h */,
+				BE6533ED1C9E392E00C4522D /* Document.m */,
+				BE6533EE1C9E392E00C4522D /* DocumentController.h */,
+				BE6533EF1C9E392E00C4522D /* DocumentController.m */,
+				BE6533F01C9E392E00C4522D /* TranslationUnit.h */,
+				BE6533F11C9E392E00C4522D /* TranslationUnit.m */,
 				BE6533D81C9E385300C4522D /* AppDelegate.h */,
 				BE6533D91C9E385300C4522D /* AppDelegate.m */,
 				BE6533DE1C9E385300C4522D /* ViewController.h */,
@@ -145,9 +160,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE6533F21C9E392E00C4522D /* Document.m in Sources */,
 				BE6533E01C9E385300C4522D /* ViewController.m in Sources */,
+				BE6533F31C9E392E00C4522D /* DocumentController.m in Sources */,
 				BE6533DD1C9E385300C4522D /* main.m in Sources */,
 				BE6533DA1C9E385300C4522D /* AppDelegate.m in Sources */,
+				BE6533F41C9E392E00C4522D /* TranslationUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
