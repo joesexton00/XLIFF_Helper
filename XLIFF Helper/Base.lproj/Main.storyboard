@@ -663,7 +663,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="75" y="-250"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -701,7 +701,7 @@
                                     <action selector="removeTranslationButtonAction:" target="5gI-5U-AMq" id="kPt-y7-jAB"/>
                                 </connections>
                             </button>
-                            <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OMn-8G-Exk">
+                            <searchField wantsLayer="YES" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OMn-8G-Exk">
                                 <rect key="frame" x="149" y="697" width="787" height="22"/>
                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="dUP-Ky-kXa">
                                     <font key="font" metaFont="system"/>
@@ -740,9 +740,9 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReS-hS-Mtf">
-                                <rect key="frame" x="9" y="0.0" width="1280" height="695"/>
-                                <clipView key="contentView" ambiguous="YES" id="ZaO-70-1Tl">
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReS-hS-Mtf">
+                                <rect key="frame" x="0.0" y="0.0" width="1280" height="695"/>
+                                <clipView key="contentView" id="ZaO-70-1Tl">
                                     <rect key="frame" x="0.0" y="23" width="1280" height="672"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -814,6 +814,13 @@
                                 </tableHeaderView>
                             </scrollView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ReS-hS-Mtf" secondAttribute="trailing" id="BAv-Ga-q7Z"/>
+                            <constraint firstItem="ReS-hS-Mtf" firstAttribute="top" secondItem="OMn-8G-Exk" secondAttribute="bottom" constant="2" id="HxJ-x1-p7x"/>
+                            <constraint firstItem="ReS-hS-Mtf" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="25" id="RKz-9k-R5I"/>
+                            <constraint firstItem="ReS-hS-Mtf" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Rge-c1-OPL"/>
+                            <constraint firstAttribute="bottom" secondItem="ReS-hS-Mtf" secondAttribute="bottom" id="WH4-0c-UyD"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="nextButtonOutlet" destination="7VP-in-4QN" id="QHa-U2-Ob3"/>
