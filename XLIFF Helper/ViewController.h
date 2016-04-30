@@ -16,6 +16,7 @@
 @property (weak) IBOutlet NSButton *nextButtonOutlet;
 @property (weak) IBOutlet NSButton *previousButtonOutlet;
 @property (weak) IBOutlet NSTextField *searchMatchesLabelOutlet;
+@property (weak) IBOutlet NSTextField *documentStatusLabelOutlet;
 
 - (IBAction)addTranslationButtonAction:(NSButton *)sender;
 - (IBAction)removeTranslationButtonAction:(NSButton *)sender;

@@ -702,7 +702,7 @@
                                 </connections>
                             </button>
                             <searchField wantsLayer="YES" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OMn-8G-Exk">
-                                <rect key="frame" x="149" y="697" width="787" height="22"/>
+                                <rect key="frame" x="149" y="697" width="564" height="22"/>
                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="dUP-Ky-kXa">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -713,7 +713,7 @@
                                 </connections>
                             </searchField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7VP-in-4QN">
-                                <rect key="frame" x="967" y="698" width="22" height="19"/>
+                                <rect key="frame" x="745" y="698" width="22" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eL0-UE-eDo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -723,7 +723,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sOZ-lr-6x7">
-                                <rect key="frame" x="944" y="698" width="22" height="19"/>
+                                <rect key="frame" x="721" y="699" width="22" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SSO-Ag-h2T">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -733,7 +733,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-gI-Qcy">
-                                <rect key="frame" x="997" y="700" width="119" height="17"/>
+                                <rect key="frame" x="773" y="700" width="119" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="o3f-M2-dUU">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -813,6 +813,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-up-WXX">
+                                <rect key="frame" x="980" y="700" width="136" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="IdF-mX-cfd">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ReS-hS-Mtf" secondAttribute="trailing" constant="3" id="BAv-Ga-q7Z"/>
@@ -823,6 +831,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="documentStatusLabelOutlet" destination="V7x-up-WXX" id="d9F-A5-UYX"/>
                         <outlet property="nextButtonOutlet" destination="7VP-in-4QN" id="QHa-U2-Ob3"/>
                         <outlet property="previousButtonOutlet" destination="sOZ-lr-6x7" id="pRw-TL-4Vr"/>
                         <outlet property="removeTranslationButtonOutlet" destination="ogd-ho-HEW" id="u46-89-7e9"/>

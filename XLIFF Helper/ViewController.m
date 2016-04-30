@@ -42,7 +42,8 @@
     self.nextButtonOutlet.enabled     = NO;
     self.previousButtonOutlet.enabled = NO;
     
-    self.searchMatchesLabelOutlet.stringValue = @"";
+    self.searchMatchesLabelOutlet.stringValue  = @"";
+    [self updateDocumentStatusLabel:@"No Changes Yet" withColor:[NSColor blackColor]];
 }
 
 - (void)awakeFromNib {
@@ -60,14 +61,18 @@
  */
 - (IBAction)addTranslationButtonAction:(NSButton *)sender {
     
-    NSUInteger index = [[self.tableView selectedRowIndexes] firstIndex] +1;
-    
+    NSUInteger index = [[self.tableView selectedRowIndexes] firstIndex] + 1;
+    if (index > [self.document.translationUnits count]) {
+        index = 0;
+    }
+
     [self.document addTranslationUnitAtIndex: index];
     [self.document loadTranslationUnits];
     [self.tableView reloadData];
 
     [self selectTableViewRowAtIndex:index];
     [self.tableView scrollRowToVisible:index];
+    [self updateDocumentStatusLabel:@"Unsaved Changes" withColor:[NSColor colorWithRed:0.91 green:0.329 blue:0.329 alpha:1]];
 }
 
 /**
@@ -101,6 +106,7 @@
     [self.document loadTranslationUnits];
     [self.tableView reloadData];
     [self selectTableViewRowAtIndex:[[self.tableView selectedRowIndexes] firstIndex]];
+    [self updateDocumentStatusLabel:@"Unsaved Changes" withColor:[NSColor colorWithRed:0.91 green:0.329 blue:0.329 alpha:1]];
 }
 
 /**
@@ -233,10 +239,13 @@
 - (void)tableView:(NSTableView *)tableView setObjectValue:(nullable id)object forTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row {
     
     TranslationUnit *translationUnit = self.document.translationUnits[row];
+    BOOL changed = NO;
+    
     if ([tableColumn.identifier isEqualToString:[TranslationUnit targetElementName]]) {
         NSParameterAssert([object isKindOfClass:[NSString class]]);
         
         if (![translationUnit.targetNode.stringValue isEqualToString:object]) {
+            changed = YES;
             translationUnit.targetNode.stringValue = object;
             [self.document.translationUnitChangeTracker trackChange:translationUnit];
             [self.document updateChangeCount:NSChangeDone];
@@ -247,6 +256,7 @@
         NSParameterAssert([object isKindOfClass:[NSString class]]);
         
         if (![translationUnit.sourceNode.stringValue isEqualToString:object]) {
+            changed = YES;
             translationUnit.sourceNode.stringValue = object;
             [self.document.translationUnitChangeTracker trackChange:translationUnit];
             
@@ -268,11 +278,16 @@
         }
         
         if (![translationUnit.noteNode.stringValue isEqualToString:object]) {
+            changed = YES;
             translationUnit.noteNode.stringValue = object;
             [self.document.translationUnitChangeTracker trackChange:translationUnit];
         }
         
         [self.document updateChangeCount:NSChangeDone];
+    }
+    
+    if (changed) {
+        [self updateDocumentStatusLabel:@"Unsaved Changes" withColor:[NSColor colorWithRed:0.91 green:0.329 blue:0.329 alpha:1]];
     }
     
     [self.tableView reloadData];
@@ -287,7 +302,7 @@
  */
 - (nullable id)tableView:(NSTableView *)tableView objectValueForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row {
     
-    TranslationUnit *translationUnit = self.document.translationUnits[row];
+    TranslationUnit *translationUnit = [self.document.translationUnits objectAtIndex:row];
     
     if ([tableColumn.identifier isEqualToString:[TranslationUnit sourceElementName]]) {
 
@@ -313,7 +328,7 @@
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
     
-    TranslationUnit *translationUnit = self.document.translationUnits[row];
+    TranslationUnit *translationUnit = [self.document.translationUnits objectAtIndex:row];
     
     if ([self.document.translationUnitChangeTracker isChanged:translationUnit]) {
         NSColor *color = [NSColor colorWithRed:0.651 green:0.8 blue:1 alpha:1];
@@ -436,10 +451,20 @@
  */
 - (void)onDocumentSave:(Document *)document {
     
+    [self updateDocumentStatusLabel:@"All Changes Saved" withColor:[NSColor colorWithRed:0.31 green:0.651 blue:0.196 alpha:1]];
+
     [self.tableView reloadData];
 }
 
 #pragma mark - Utility methods
+
+- (void)updateDocumentStatusLabel:(NSString *)string withColor:(NSColor *)color {
+    NSMutableAttributedString *statusLabel = [[NSMutableAttributedString alloc] initWithString:string];
+    
+    [statusLabel addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, [string length])];
+    
+    self.documentStatusLabelOutlet.attributedStringValue = statusLabel;
+}
 
 /**
  * Creates table cell text given a string.

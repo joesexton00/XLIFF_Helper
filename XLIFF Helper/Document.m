@@ -209,10 +209,13 @@ originalContentsURL:(NSURL *)absoluteOriginalContentsURL
  * @param index
  */
 - (void)addTranslationUnitAtIndex:(NSUInteger)index {
-    
+   
     NSXMLElement *translationUnitElement = [self createXmlElementWithSource:@"new.translation.unit" withTarget:@"" withNote:@""];
-    
+
     [[self bodyElement] insertChild:translationUnitElement atIndex:index];
+    
+    TranslationUnit *translationUnit = [[TranslationUnit alloc] initWithXMLElement:translationUnitElement];
+    [self.translationUnitChangeTracker trackChange:translationUnit];
 }
 
 /**
