@@ -9,13 +9,28 @@
 #import <Cocoa/Cocoa.h>
 
 #import "TranslationUnit.h"
+#import "TranslationUnitChangeTracker.h"
 
+@class Document;
+
+@protocol DocumentEventDelegate <NSObject>
+
+/**
+ * Called when a document is saved
+ *
+ * @param the document that is being saved
+ */
+- (void)onDocumentSave:(Document *)document;
+
+@end
 
 @interface Document : NSDocument
 
 @property (nonatomic, strong) NSString *translationUnitFilter;
 @property (nonatomic, strong) NSArray<TranslationUnit *> *translationUnits;
 @property (nonatomic, strong) NSMutableArray *filterMatches;
+@property (nonatomic, strong) TranslationUnitChangeTracker *translationUnitChangeTracker;
+@property (nonatomic) id<DocumentEventDelegate> documentEventDelegate;
 
 /**
  * Loads translation units into an array

@@ -14,6 +14,9 @@
 @property (nonatomic, readonly) NSXMLNode *sourceNode;
 @property (nonatomic, readonly) NSXMLNode *targetNode;
 @property (nonatomic) NSXMLNode *noteNode;
+@property (nonatomic) BOOL sourceNodeChanged;
+@property (nonatomic) BOOL targetNodeChanged;
+@property (nonatomic) BOOL noteNodeChanged;
 
 /**
  * initialize using a trans-unit xml node

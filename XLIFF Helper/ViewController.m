@@ -8,9 +8,7 @@
 
 #import "ViewController.h"
 
-#import "Document.h"
-
-@interface ViewController () <NSTableViewDataSource, NSTableViewDelegate>
+@interface ViewController () <NSTableViewDataSource, NSTableViewDelegate, DocumentEventDelegate>
 
 @property (nonatomic, weak) Document *document;
 @property (nonatomic, weak) IBOutlet NSTableView *tableView;
@@ -30,12 +28,14 @@
     [super viewWillAppear];
 
     self.document = self.view.window.windowController.document;
+    self.document.documentEventDelegate = self;
     
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
     
     [self.tableView setAllowsMultipleSelection: YES];
     [self.tableView setAllowsColumnSelection:NO];
+    [self.tableView setIntercellSpacing:NSMakeSize(0, 0)];
     self.removeTranslationButtonOutlet.enabled = NO;
     
     self.currentSearchResultIndex     = 0;
@@ -235,19 +235,29 @@
     TranslationUnit *translationUnit = self.document.translationUnits[row];
     if ([tableColumn.identifier isEqualToString:[TranslationUnit targetElementName]]) {
         NSParameterAssert([object isKindOfClass:[NSString class]]);
-        translationUnit.targetNode.stringValue = object;
-        [self.document updateChangeCount:NSChangeDone];
+        
+        if (![translationUnit.targetNode.stringValue isEqualToString:object]) {
+            translationUnit.targetNode.stringValue = object;
+            [self.document.translationUnitChangeTracker trackChange:translationUnit];
+            [self.document updateChangeCount:NSChangeDone];
+        }
+        
     }
     if ([tableColumn.identifier isEqualToString:[TranslationUnit sourceElementName]]) {
         NSParameterAssert([object isKindOfClass:[NSString class]]);
-        translationUnit.sourceNode.stringValue = object;
         
-        NSArray *arr = [translationUnit.element nodesForXPath: @"@id" error:NULL];
-        for (NSXMLNode *attribute in arr) {
-            attribute.stringValue = object;
+        if (![translationUnit.sourceNode.stringValue isEqualToString:object]) {
+            translationUnit.sourceNode.stringValue = object;
+            [self.document.translationUnitChangeTracker trackChange:translationUnit];
+            
+            NSArray *arr = [translationUnit.element nodesForXPath: @"@id" error:NULL];
+            for (NSXMLNode *attribute in arr) {
+                attribute.stringValue = object;
+            }
+            
+            [self.document updateChangeCount:NSChangeDone];
         }
         
-        [self.document updateChangeCount:NSChangeDone];
     }
     if ([tableColumn.identifier isEqualToString:[TranslationUnit noteElementName]]) {
         NSParameterAssert([object isKindOfClass:[NSString class]]);
@@ -257,10 +267,15 @@
             [translationUnit.element addChild:translationUnit.noteNode];
         }
         
-        translationUnit.noteNode.stringValue = object;
+        if (![translationUnit.noteNode.stringValue isEqualToString:object]) {
+            translationUnit.noteNode.stringValue = object;
+            [self.document.translationUnitChangeTracker trackChange:translationUnit];
+        }
         
         [self.document updateChangeCount:NSChangeDone];
     }
+    
+    [self.tableView reloadData];
 }
 
 /**
@@ -275,21 +290,42 @@
     TranslationUnit *translationUnit = self.document.translationUnits[row];
     
     if ([tableColumn.identifier isEqualToString:[TranslationUnit sourceElementName]]) {
-        
+
         return [self createTableCellTextFromString:translationUnit.sourceNode.stringValue atIndex:row];
     }
-    
+
     if ([tableColumn.identifier isEqualToString:[TranslationUnit targetElementName]]) {
         
         return [self createTableCellTextFromString:translationUnit.targetNode.stringValue atIndex:row];
     }
-    
+
     if ([tableColumn.identifier isEqualToString:[TranslationUnit noteElementName]]) {
         
         return [self createTableCellTextFromString:translationUnit.noteNode.stringValue atIndex:row];
+       
     }
-    
+
     return nil;
+}
+
+- (void)tableView:(NSTableView *)tableView
+  willDisplayCell:(id)cell
+   forTableColumn:(NSTableColumn *)tableColumn
+              row:(NSInteger)row {
+    
+    TranslationUnit *translationUnit = self.document.translationUnits[row];
+    
+    if ([self.document.translationUnitChangeTracker isChanged:translationUnit]) {
+        NSColor *color = [NSColor colorWithRed:0.651 green:0.8 blue:1 alpha:1];
+        [cell setBackgroundColor:color];
+        [cell setDrawsBackground:YES];
+    } else if ([self.document.translationUnitChangeTracker isSavedChanged:translationUnit]) {
+        NSColor *color = [NSColor colorWithRed:0.651 green:0.8 blue:1 alpha:0.3f];
+        [cell setBackgroundColor:color];
+        [cell setDrawsBackground:YES];
+    } else {
+        [cell setDrawsBackground:NO];
+    }
 }
 
 /**
@@ -393,6 +429,18 @@
     return YES;
 }
 
+#pragma mark - DocumentEventDelegate methods
+
+/**
+ * Called when a document is saved\
+ *
+ * @param the document that is being saved
+ */
+- (void)onDocumentSave:(Document *)document {
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - Utility methods
 
 /**
@@ -411,11 +459,12 @@
         return [self createSearchMatchString:string atRange:range atIndex:index];
     }
     
+    
     return string;
 }
 
 /**
- * Creates an attributed string that highlights mathcing search text
+ * Creates an attributed string that highlights matching search text
  *
  * @param string value
  * @param range

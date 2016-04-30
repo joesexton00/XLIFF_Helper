@@ -86,6 +86,10 @@ originalContentsURL:(NSURL *)absoluteOriginalContentsURL
         index ++;
     }
     
+    [self.translationUnitChangeTracker markChangesSaved];
+    [self.translationUnitChangeTracker clearChanges];
+    [self.documentEventDelegate onDocumentSave:self];
+    
     return [super writeToURL:absoluteURL
                       ofType:typeName
             forSaveOperation:saveOperation
@@ -122,6 +126,8 @@ originalContentsURL:(NSURL *)absoluteOriginalContentsURL
  */
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     
+    self.translationUnitChangeTracker = [[TranslationUnitChangeTracker alloc] init];
+    
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithData:data options:0 error:outError];
     if (!document) {
         return NO;
@@ -157,7 +163,6 @@ originalContentsURL:(NSURL *)absoluteOriginalContentsURL
         
         index++;
     }
-    NSLog(@"%@", self.filterMatches);
     
     self.translationUnits = [NSArray arrayWithArray:array];
 }

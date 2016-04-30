@@ -7,8 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Document.h"
 
-@interface ViewController : NSViewController
+@interface ViewController : NSViewController <DocumentEventDelegate>
+
 @property (weak) IBOutlet NSButton *removeTranslationButtonOutlet;
 @property (weak) IBOutlet NSSearchFieldCell *searchFieldOutlet;
 @property (weak) IBOutlet NSButton *nextButtonOutlet;
@@ -21,6 +23,13 @@
 - (IBAction)searchFieldAction:(NSSearchField *)sender;
 - (IBAction)nextButtonAction:(NSButton *)sender;
 - (IBAction)previousButtonAction:(NSButton *)sender;
+
+/**
+ * Called when a document is saved
+ *
+ * @param the document that is being saved
+ */
+- (void)onDocumentSave:(Document *)document;
 
 @end
 
