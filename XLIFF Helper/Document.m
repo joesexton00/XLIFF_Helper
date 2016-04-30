@@ -153,11 +153,9 @@ originalContentsURL:(NSURL *)absoluteOriginalContentsURL
     
     self.filterMatches = [[NSMutableArray alloc] init];
 
-    NSArray *transUnitElement = [[self bodyElement] elementsForName:@"trans-unit"];
-    
-    NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     NSUInteger index = 0;
-    for (NSXMLElement *element in transUnitElement) {
+    for (NSXMLElement *element in [[self bodyElement] children]) {
         [self checkIfElementMatchesFilter:element index:index];
         [array addObject:[[TranslationUnit alloc] initWithXMLElement:element]];
         

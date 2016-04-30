@@ -352,7 +352,8 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     
     NSString *content = [self.document.translationUnits objectAtIndex:row].targetNode.stringValue;
-
+    
+    
     NSTableColumn *targetColumn = [tableView tableColumnWithIdentifier:@"target"];
     CGSize constraint = CGSizeMake([targetColumn width], 20000.0f);
 
@@ -361,7 +362,12 @@
                                       attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:13]}
                                          context:nil];
 
-    return textRect.size.height;
+    CGRect emptyRect = [@"DUMMY TEXT" boundingRectWithSize:constraint
+                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:13]}
+                                            context:nil];
+    
+    return textRect.size.height ? textRect.size.height : emptyRect.size.height;
 }
 
 
