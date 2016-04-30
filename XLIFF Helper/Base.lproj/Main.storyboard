@@ -740,14 +740,14 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReS-hS-Mtf">
-                                <rect key="frame" x="0.0" y="0.0" width="1280" height="695"/>
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReS-hS-Mtf">
+                                <rect key="frame" x="3" y="5" width="1274" height="690"/>
                                 <clipView key="contentView" id="ZaO-70-1Tl">
-                                    <rect key="frame" x="0.0" y="23" width="1280" height="672"/>
+                                    <rect key="frame" x="0.0" y="23" width="1274" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="rAw-gw-560" id="G5m-el-jrB">
-                                            <rect key="frame" x="0.0" y="0.0" width="1509" height="19"/>
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="rAw-gw-560" id="G5m-el-jrB">
+                                            <rect key="frame" x="0.0" y="0.0" width="1509" height="667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -801,7 +801,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="87T-TT-tWG">
-                                    <rect key="frame" x="0.0" y="679" width="1280" height="16"/>
+                                    <rect key="frame" x="0.0" y="674" width="1274" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="lZH-Hg-MNV">
@@ -815,11 +815,11 @@
                             </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ReS-hS-Mtf" secondAttribute="trailing" id="BAv-Ga-q7Z"/>
+                            <constraint firstAttribute="trailing" secondItem="ReS-hS-Mtf" secondAttribute="trailing" constant="3" id="BAv-Ga-q7Z"/>
                             <constraint firstItem="ReS-hS-Mtf" firstAttribute="top" secondItem="OMn-8G-Exk" secondAttribute="bottom" constant="2" id="HxJ-x1-p7x"/>
                             <constraint firstItem="ReS-hS-Mtf" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="25" id="RKz-9k-R5I"/>
-                            <constraint firstItem="ReS-hS-Mtf" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Rge-c1-OPL"/>
-                            <constraint firstAttribute="bottom" secondItem="ReS-hS-Mtf" secondAttribute="bottom" id="WH4-0c-UyD"/>
+                            <constraint firstItem="ReS-hS-Mtf" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="3" id="Rge-c1-OPL"/>
+                            <constraint firstAttribute="bottom" secondItem="ReS-hS-Mtf" secondAttribute="bottom" constant="5" id="WH4-0c-UyD"/>
                         </constraints>
                     </view>
                     <connections>

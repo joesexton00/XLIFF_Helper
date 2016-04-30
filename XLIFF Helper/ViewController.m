@@ -336,19 +336,17 @@
  */
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     
-    float colWidth = [[tableView tableColumnWithIdentifier:[TranslationUnit targetElementName]] width];
     NSString *content = [self.document.translationUnits objectAtIndex:row].targetNode.stringValue;
 
-    float textWidth = [content sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:15],NSFontAttributeName ,nil]].width;
+    NSTableColumn *targetColumn = [tableView tableColumnWithIdentifier:@"target"];
+    CGSize constraint = CGSizeMake([targetColumn width], 20000.0f);
 
-    float rows = ceil(textWidth/colWidth);
+    CGRect textRect = [content boundingRectWithSize:constraint
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:13]}
+                                         context:nil];
 
-    float newHeight = (rows * RowHeightPerLine);
-    if (newHeight < RowHeightPerLine) {
-        return RowHeightPerLine;
-    }
-
-    return newHeight;
+    return textRect.size.height;
 }
 
 
